@@ -152,3 +152,74 @@ Created and maintained by the DelivOps team.
 ## Support
 
 For questions or issues, please open a GitHub issue or contact the maintainers.
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_appautoscaling_policy.scale_down_one](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource |
+| [aws_appautoscaling_policy.scale_up_emergency](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource |
+| [aws_appautoscaling_policy.scale_up_one](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy) | resource |
+| [aws_appautoscaling_target.ecs_target](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_target) | resource |
+| [aws_cloudwatch_metric_alarm.age_emergency](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_cloudwatch_metric_alarm.age_scale_up](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_cloudwatch_metric_alarm.empty_receives_scale_down](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_sqs_queue.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/sqs_queue) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_age_threshold_emergency"></a> [age\_threshold\_emergency](#input\_age\_threshold\_emergency) | Age in seconds to trigger emergency scaling | `number` | `240` | no |
+| <a name="input_age_threshold_normal"></a> [age\_threshold\_normal](#input\_age\_threshold\_normal) | Age in seconds to trigger +1 scaling | `number` | `180` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | ECS cluster name where the service is running | `string` | n/a | yes |
+| <a name="input_emergency_cooldown"></a> [emergency\_cooldown](#input\_emergency\_cooldown) | Cooldown period in seconds between emergency scale up actions | `number` | `120` | no |
+| <a name="input_emergency_scale_adjustment"></a> [emergency\_scale\_adjustment](#input\_emergency\_scale\_adjustment) | Number of tasks to add during emergency scaling | `number` | `5` | no |
+| <a name="input_empty_receives_per_task"></a> [empty\_receives\_per\_task](#input\_empty\_receives\_per\_task) | Number of empty receives per task before scaling down | `number` | `10` | no |
+| <a name="input_max_capacity"></a> [max\_capacity](#input\_max\_capacity) | Maximum number of tasks | `number` | `50` | no |
+| <a name="input_min_capacity"></a> [min\_capacity](#input\_min\_capacity) | Minimum number of tasks | `number` | `0` | no |
+| <a name="input_queue_name"></a> [queue\_name](#input\_queue\_name) | SQS queue name | `string` | n/a | yes |
+| <a name="input_scale_down_age_threshold"></a> [scale\_down\_age\_threshold](#input\_scale\_down\_age\_threshold) | Maximum age of oldest message (seconds) before preventing scale down | `number` | `30` | no |
+| <a name="input_scale_down_cooldown"></a> [scale\_down\_cooldown](#input\_scale\_down\_cooldown) | Cooldown period in seconds between scale down actions | `number` | `300` | no |
+| <a name="input_scale_down_evaluation_periods"></a> [scale\_down\_evaluation\_periods](#input\_scale\_down\_evaluation\_periods) | Number of evaluation periods for scale down alarm | `number` | `5` | no |
+| <a name="input_scale_down_visible_messages_threshold"></a> [scale\_down\_visible\_messages\_threshold](#input\_scale\_down\_visible\_messages\_threshold) | Maximum number of visible messages before preventing scale down | `number` | `10` | no |
+| <a name="input_scale_up_cooldown"></a> [scale\_up\_cooldown](#input\_scale\_up\_cooldown) | Cooldown period in seconds between scale up actions | `number` | `60` | no |
+| <a name="input_service_name"></a> [service\_name](#input\_service\_name) | ECS service name | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to the resources | `map(string)` | `{}` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_age_scale_up_alarm_arn"></a> [age\_scale\_up\_alarm\_arn](#output\_age\_scale\_up\_alarm\_arn) | The ARN of the age scale up alarm |
+| <a name="output_age_scale_up_alarm_name"></a> [age\_scale\_up\_alarm\_name](#output\_age\_scale\_up\_alarm\_name) | The name of the age scale up alarm |
+| <a name="output_autoscaling_target_arn"></a> [autoscaling\_target\_arn](#output\_autoscaling\_target\_arn) | The ARN of the autoscaling target |
+| <a name="output_autoscaling_target_resource_id"></a> [autoscaling\_target\_resource\_id](#output\_autoscaling\_target\_resource\_id) | The resource ID of the autoscaling target |
+| <a name="output_emergency_alarm_arn"></a> [emergency\_alarm\_arn](#output\_emergency\_alarm\_arn) | The ARN of the emergency scale up alarm |
+| <a name="output_emergency_alarm_name"></a> [emergency\_alarm\_name](#output\_emergency\_alarm\_name) | The name of the emergency scale up alarm |
+| <a name="output_emergency_scale_up_policy_arn"></a> [emergency\_scale\_up\_policy\_arn](#output\_emergency\_scale\_up\_policy\_arn) | The ARN of the emergency scale up policy |
+| <a name="output_idle_scale_down_alarm_arn"></a> [idle\_scale\_down\_alarm\_arn](#output\_idle\_scale\_down\_alarm\_arn) | The ARN of the idle scale down alarm |
+| <a name="output_idle_scale_down_alarm_name"></a> [idle\_scale\_down\_alarm\_name](#output\_idle\_scale\_down\_alarm\_name) | The name of the idle scale down alarm |
+| <a name="output_queue_arn"></a> [queue\_arn](#output\_queue\_arn) | The ARN of the SQS queue |
+| <a name="output_queue_url"></a> [queue\_url](#output\_queue\_url) | The URL of the SQS queue |
+| <a name="output_scale_down_policy_arn"></a> [scale\_down\_policy\_arn](#output\_scale\_down\_policy\_arn) | The ARN of the scale down policy |
+| <a name="output_scale_up_policy_arn"></a> [scale\_up\_policy\_arn](#output\_scale\_up\_policy\_arn) | The ARN of the scale up policy |
+<!-- END_TF_DOCS -->
