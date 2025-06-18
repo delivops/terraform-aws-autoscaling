@@ -1,0 +1,38 @@
+# AWS Configuration
+aws_region     = "us-east-1"
+environment    = "dev"
+project_name   = "ecs-autoscaling-demo"
+
+# VPC Configuration
+vpc_cidr           = "10.0.0.0/16"
+private_subnets    = ["10.0.1.0/24", "10.0.2.0/24"]
+public_subnets     = ["10.0.101.0/24", "10.0.102.0/24"]
+single_nat_gateway = true  # Set to false for high availability
+
+# ECS Configuration
+cluster_name  = "message-processing-cluster"
+service_name  = "message-processor"
+container_image = "your-account.dkr.ecr.us-east-1.amazonaws.com/message-processor:latest"
+
+# Task Configuration
+task_cpu              = 256
+task_memory           = 512
+initial_desired_count = 1
+
+# SQS Configuration
+queue_name                 = "message-processing-queue"
+message_visibility_timeout = 300
+max_receive_count          = 3
+
+# Auto Scaling Configuration
+min_capacity            = 0
+max_capacity            = 10
+age_threshold_normal    = 180  # 3 minutes
+age_threshold_emergency = 240  # 4 minutes
+scale_up_cooldown       = 60   # 1 minute
+scale_down_cooldown     = 300  # 5 minutes
+emergency_cooldown      = 120  # 2 minutes
+
+# Scale Down Configuration
+scale_down_visible_messages_threshold = 10
+scale_down_age_threshold             = 30

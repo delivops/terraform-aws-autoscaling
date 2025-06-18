@@ -1,0 +1,8 @@
+# Replace these values with your actual AWS resources
+aws_region  = "us-east-1"
+environment = "production"
+cluster_name = "my-ecs-cluster"
+
+# High Priority Service Configuration
+high_priority_service_name = "urgent-processor"
+high_priority_queue_name   = "urgent-processing-queue"

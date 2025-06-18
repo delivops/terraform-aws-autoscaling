@@ -1,0 +1,9 @@
+# Replace these values with your actual AWS resources
+aws_region   = "us-east-1"
+cluster_name = "my-ecs-cluster"
+service_name = "my-worker-service"
+queue_name   = "my-processing-queue"
+
+# Scaling configuration
+min_capacity = 1
+max_capacity = 10
