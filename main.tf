@@ -2,7 +2,7 @@
 # Simple ECS Worker Autoscaling based on SQS metrics
 # Strategy: +1/-1 scaling with emergency circuit breaker
 
-# Get SQS queue information
+# Get SQS queue information 
 data "aws_sqs_queue" "main" {
   name = var.queue_name
 }
