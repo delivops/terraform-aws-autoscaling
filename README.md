@@ -39,7 +39,7 @@ A Terraform module that provides intelligent auto scaling for ECS services based
 
 ```hcl
 module "ecs_autoscaling" {
-  source = "./path-to-this-module"
+  source = "xxx"
 
   cluster_name = "my-ecs-cluster"
   service_name = "my-worker-service"
@@ -92,44 +92,6 @@ This module creates the following resources:
 - `aws_appautoscaling_target` - ECS service scaling target
 - `aws_appautoscaling_policy` (3x) - Scale up, scale down, and emergency policies
 - `aws_cloudwatch_metric_alarm` (3x) - Monitoring alarms for scaling triggers
-
-## Inputs
-
-| Name                                  | Description                                                          | Type          | Default | Required |
-| ------------------------------------- | -------------------------------------------------------------------- | ------------- | ------- | :------: |
-| cluster_name                          | ECS cluster name where the service is running                        | `string`      | n/a     |   yes    |
-| service_name                          | ECS service name                                                     | `string`      | n/a     |   yes    |
-| queue_name                            | SQS queue name                                                       | `string`      | n/a     |   yes    |
-| max_capacity                          | Maximum number of tasks                                              | `number`      | `50`    |    no    |
-| min_capacity                          | Minimum number of tasks                                              | `number`      | `0`     |    no    |
-| age_threshold_normal                  | Age in seconds to trigger +1 scaling                                 | `number`      | `180`   |    no    |
-| age_threshold_emergency               | Age in seconds to trigger emergency scaling                          | `number`      | `240`   |    no    |
-| scale_up_cooldown                     | Cooldown period in seconds between scale up actions                  | `number`      | `60`    |    no    |
-| scale_down_cooldown                   | Cooldown period in seconds between scale down actions                | `number`      | `300`   |    no    |
-| emergency_cooldown                    | Cooldown period in seconds between emergency scale up actions        | `number`      | `120`   |    no    |
-| emergency_scale_adjustment            | Number of tasks to add during emergency scaling                      | `number`      | `5`     |    no    |
-| scale_down_visible_messages_threshold | Maximum number of visible messages before preventing scale down      | `number`      | `10`    |    no    |
-| scale_down_age_threshold              | Maximum age of oldest message (seconds) before preventing scale down | `number`      | `30`    |    no    |
-| scale_down_evaluation_periods         | Number of evaluation periods for scale down alarm                    | `number`      | `5`     |    no    |
-| tags                                  | A map of tags to assign to the resources                             | `map(string)` | `{}`    |    no    |
-
-## Outputs
-
-| Name                           | Description                               |
-| ------------------------------ | ----------------------------------------- |
-| autoscaling_target_resource_id | The resource ID of the autoscaling target |
-| autoscaling_target_arn         | The ARN of the autoscaling target         |
-| queue_arn                      | The ARN of the SQS queue                  |
-| queue_url                      | The URL of the SQS queue                  |
-| scale_up_policy_arn            | The ARN of the scale up policy            |
-| scale_down_policy_arn          | The ARN of the scale down policy          |
-| emergency_scale_up_policy_arn  | The ARN of the emergency scale up policy  |
-| age_scale_up_alarm_name        | The name of the age scale up alarm        |
-| age_scale_up_alarm_arn         | The ARN of the age scale up alarm         |
-| idle_scale_down_alarm_name     | The name of the idle scale down alarm     |
-| idle_scale_down_alarm_arn      | The ARN of the idle scale down alarm      |
-| emergency_alarm_name           | The name of the emergency scale up alarm  |
-| emergency_alarm_arn            | The ARN of the emergency scale up alarm   |
 
 ## Monitoring
 
