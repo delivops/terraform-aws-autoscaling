@@ -18,7 +18,7 @@ resource "aws_appautoscaling_target" "ecs_target" {
 
 # SCALE UP: Age of oldest message > threshold
 resource "aws_cloudwatch_metric_alarm" "age_scale_up" {
-  alarm_name          = "${var.service_name}-age-scale-up"
+  alarm_name          = "${var.cluster_name}/${var.service_name}-age-scale-up"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = var.scale_up_evaluation_periods
   datapoints_to_alarm = var.scale_up_datapoints_to_alarm
@@ -61,7 +61,7 @@ resource "aws_appautoscaling_policy" "scale_up_one" {
 
 # SCALE DOWN: Too many empty receives with low queue activity
 resource "aws_cloudwatch_metric_alarm" "empty_receives_scale_down" {
-  alarm_name          = "${var.service_name}-idle-scale-down"
+  alarm_name          = "${var.cluster_name}/${var.service_name}-idle-scale-down"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = var.scale_down_evaluation_periods
   threshold           = 1
@@ -130,7 +130,7 @@ resource "aws_appautoscaling_policy" "scale_down_one" {
 
 # EMERGENCY SCALE UP: Age critically high
 resource "aws_cloudwatch_metric_alarm" "age_emergency" {
-  alarm_name          = "${var.service_name}-age-emergency"
+  alarm_name          = "${var.cluster_name}/${var.service_name}-age-emergency"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = var.emergency_evaluation_periods
   datapoints_to_alarm = var.emergency_datapoints_to_alarm

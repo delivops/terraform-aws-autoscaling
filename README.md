@@ -97,9 +97,9 @@ This module creates the following resources:
 
 The module creates CloudWatch alarms that you can monitor:
 
-1. **Age Scale Up Alarm**: `{service_name}-age-scale-up`
-2. **Idle Scale Down Alarm**: `{service_name}-idle-scale-down`
-3. **Emergency Scale Up Alarm**: `{service_name}-age-emergency`
+1. **Age Scale Up Alarm**: `{cluster_name}/{service_name}-age-scale-up`
+2. **Idle Scale Down Alarm**: `{cluster_name}/{service_name}-idle-scale-down`
+3. **Emergency Scale Up Alarm**: `{cluster_name}/{service_name}-age-emergency`
 
 ## Best Practices
 
