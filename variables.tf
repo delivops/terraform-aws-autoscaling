@@ -85,6 +85,35 @@ variable "scale_down_evaluation_periods" {
   default     = 5
 }
 
+variable "scale_up_evaluation_periods" {
+  description = "Number of evaluation periods for normal scale up alarm"
+  type        = number
+  default     = 1
+}
+variable "scale_down_datapoints_to_alarm" {
+  description = "Number of datapoints that must be breaching to trigger scale down alarm"
+  type        = number
+  default     = 5
+
+}
+variable "scale_up_datapoints_to_alarm" {
+  description = "Number of datapoints that must be breaching to trigger normal scale up alarm"
+  type        = number
+  default     = 1
+}
+
+variable "emergency_evaluation_periods" {
+  description = "Number of evaluation periods for emergency scale up alarm"
+  type        = number
+  default     = 1
+}
+
+variable "emergency_datapoints_to_alarm" {
+  description = "Number of datapoints that must be breaching to trigger emergency scale up alarm"
+  type        = number
+  default     = 1
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources"
   type        = map(string)

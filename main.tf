@@ -20,7 +20,8 @@ resource "aws_appautoscaling_target" "ecs_target" {
 resource "aws_cloudwatch_metric_alarm" "age_scale_up" {
   alarm_name          = "${var.service_name}-age-scale-up"
   comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = "2"
+  evaluation_periods  = var.scale_up_evaluation_periods
+  datapoints_to_alarm = var.scale_up_datapoints_to_alarm
   metric_name         = "ApproximateAgeOfOldestMessage"
   namespace           = "AWS/SQS"
   period              = "60"
@@ -66,7 +67,7 @@ resource "aws_cloudwatch_metric_alarm" "empty_receives_scale_down" {
   threshold           = 1
   alarm_description   = "Scale down when idle - few visible messages AND no old messages"
   treat_missing_data  = "notBreaching"
-  datapoints_to_alarm = var.scale_down_evaluation_periods
+  datapoints_to_alarm = var.scale_down_datapoints_to_alarm
 
   # Scale down if: few visible messages AND no old messages
   metric_query {
@@ -131,7 +132,8 @@ resource "aws_appautoscaling_policy" "scale_down_one" {
 resource "aws_cloudwatch_metric_alarm" "age_emergency" {
   alarm_name          = "${var.service_name}-age-emergency"
   comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = "1"
+  evaluation_periods  = var.emergency_evaluation_periods
+  datapoints_to_alarm = var.emergency_datapoints_to_alarm
   metric_name         = "ApproximateAgeOfOldestMessage"
   namespace           = "AWS/SQS"
   period              = "60"
