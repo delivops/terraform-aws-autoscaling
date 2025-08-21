@@ -1,3 +1,5 @@
+[![DelivOps banner](https://raw.githubusercontent.com/delivops/.github/main/images/banner.png?raw=true)](https://delivops.com)
+
 # Terraform AWS ECS Auto Scaling Module
 
 A Terraform module that provides intelligent auto scaling for ECS services based on Amazon SQS queue metrics. This module implements a smart scaling strategy with normal scaling and emergency scaling capabilities.
